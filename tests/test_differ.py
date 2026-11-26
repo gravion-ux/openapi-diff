@@ -196,6 +196,26 @@ def test_enum_value_removed_from_parameter_is_breaking():
     assert result.has_breaking is True
 
 
+def test_enum_constraint_added_to_parameter_is_breaking():
+    old = base_spec()
+    del get_op(old)["parameters"][1]["schema"]["enum"]
+    new = base_spec()
+    result = compare_specs(old, new)
+    change = next(c for c in result.changes if c.kind == "enum_constraint_added")
+    assert change.severity == "breaking"
+    assert result.has_breaking is True
+
+
+def test_enum_constraint_added_to_response_is_info():
+    old = base_spec()
+    del old["components"]["schemas"]["Pet"]["properties"]["state"]["enum"]
+    new = base_spec()
+    result = compare_specs(old, new)
+    change = next(c for c in result.changes if c.kind == "enum_constraint_added")
+    assert change.severity == "info"
+    assert result.has_breaking is False
+
+
 def test_request_body_became_required_is_breaking():
     old = base_spec()
     new = base_spec()

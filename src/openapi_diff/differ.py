@@ -246,6 +246,25 @@ def _compare_schemas(
                 reason="The value set widened; existing clients keep working.",
             )
         )
+    elif old_enum is None and new_enum is not None:
+        if context in ("request", "parameter"):
+            severity = SEVERITY_BREAKING
+            reason = (
+                "Values outside the new enum that clients could previously "
+                "send will now be rejected."
+            )
+        else:
+            severity = SEVERITY_INFO
+            reason = "Responses now use a narrower value set; existing clients keep working."
+        changes.append(
+            Change(
+                kind="enum_constraint_added",
+                severity=severity,
+                location=location,
+                message="enum constraint added",
+                reason=reason,
+            )
+        )
 
     # Array items.
     if isinstance(old.get("items"), dict) and isinstance(new.get("items"), dict):

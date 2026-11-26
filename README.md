@@ -55,6 +55,8 @@ python -m openapi_diff old.json new.json
 | Property added (request or response, optional) | non-breaking |
 | Enum value removed | breaking |
 | Enum value added | info |
+| Enum constraint added to a request/parameter | breaking |
+| Enum constraint added to a response | info |
 
 Schemas nested in objects and arrays are compared recursively, including schemas reached through `$ref` and shallow `allOf` composition.
 

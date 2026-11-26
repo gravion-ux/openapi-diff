@@ -1,6 +1,10 @@
+<p align="center"><img src="assets/banner.svg" alt="openapi-diff banner" width="100%"/></p>
+
 # openapi-diff
 
-OpenAPI 3.x breaking-change differ with CI-friendly exit codes. Stdlib only — no dependencies at runtime.
+[![CI](https://github.com/gravion-ux/openapi-diff/actions/workflows/ci.yml/badge.svg)](https://github.com/gravion-ux/openapi-diff/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+**OpenAPI 3.x breaking-change differ with CI-friendly exit codes.**
 
 Compare two OpenAPI JSON specs and get every change classified as **breaking**, **non-breaking**, or **info**, each with a location and a reason. Local `$ref` pointers (`#/components/...`) are resolved, so schemas are compared by their effective shape, not by reference name.
 
